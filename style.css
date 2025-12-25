@@ -1,19 +1,17 @@
 /* =========================
    FINAL CLEAN STYLE.CSS
-   (for your current HTML)
+   (recreated to match screenshot layout exactly)
    ========================= */
 
-/* Theme */
 :root{
   --border-color: #e6e6e6;
   --border-w: 1px;
   --border: var(--border-w) solid var(--border-color);
 
-  --bg: #ffffff;        /* page background */
-  --panel-bg: #ffffff;  /* box background */
-  --header-bg: #f7f7f7; /* table header + label cells */
+  --bg: #ffffff;
+  --panel-bg: #ffffff;
+  --header-bg: #f7f7f7;
   --text: #222;
-  --muted: #333;
 }
 
 *{ box-sizing: border-box; }
@@ -23,37 +21,38 @@ body{
   font-family: Arial, Helvetica, sans-serif;
   background: var(--bg);
   color: var(--text);
+  font-size: 13px;
 }
 
-/* ===== Page width (Fix big left/right blank space) ===== */
+/* container */
 .well-sm{
   width: 100%;
-  max-width: none;   /* remove limits */
-  margin: 0;         /* no centered narrow block */
-  padding: 18px 18px;
+  max-width: none;
+  margin: 0;
+  padding: 18px;
 }
 
-/* ===== Titles (Fix size difference) ===== */
+/* headings */
 center h2{
   margin: 16px 0 6px;
-  font-size: 26px;     /* bigger title */
+  font-size: 20px;
   font-weight: 700;
   color: #111;
 }
 center h4{
-  margin: 0 0 18px;
-  font-size: 14px;
+  margin: 0 0 8px;
+  font-size: 12px;
   font-weight: 600;
   color: #222;
 }
 center h6{
   margin: 14px 0 6px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   color: #333;
 }
 
-/* ===== Panels / Boxes (Fix box size + consistent borders) ===== */
+/* panels */
 .panel{
   width: 100%;
   background: var(--panel-bg);
@@ -62,17 +61,11 @@ center h6{
   margin: 0 0 16px 0;
 }
 
-.panel-default{
-  border: var(--border);
-}
-
-/* the inside padding area */
 .well-lg{
   padding: 14px;
   background: var(--panel-bg);
 }
 
-/* inner panels */
 .panel .panel{
   border: var(--border);
   border-radius: 4px;
@@ -81,24 +74,22 @@ center h6{
   overflow: hidden;
 }
 
-/* panel header bar text */
 .panel-body{
   padding: 10px 12px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 500;
   color: #444;
   background: var(--panel-bg);
   border-bottom: var(--border);
 }
 
-/* ===== Tables (Fix thick/thin borders + middle divider issue) ===== */
+/* tables */
 .table{
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;    /* IMPORTANT: prevents weird column gaps */
+  table-layout: fixed;
   background: var(--panel-bg);
   margin: 0;
-  font-size: 13px;
 }
 
 .table-bordered{
@@ -106,14 +97,14 @@ center h6{
 }
 
 .table td, .table th{
-  border: var(--border);  /* SAME border everywhere */
+  border: var(--border);
   padding: 10px 12px;
   vertical-align: middle;
   word-wrap: break-word;
   overflow-wrap: anywhere;
+  line-height: 1.25;
 }
 
-/* header row (听力/阅读/写作/Total Score etc.) */
 .table thead th{
   background: var(--header-bg);
   font-weight: 700;
@@ -128,41 +119,35 @@ center h6{
 
 .text-right{ text-align: right; }
 
-/* Make label column width stable */
+/* stable label column */
 .table td.active.text-right{
   width: 260px;
   white-space: nowrap;
 }
 
-/* Photo cell
-   - force a consistent cell width and vertical alignment
-   - override inline image height/width attributes and crop uniformly
-*/
-.table td[rowspan]{
-  width: 150px;               /* stable column size */
+/* photo cell: force 100x100 image and stable column */
+.table td.photo-cell{
+  width: 100px;
   text-align: center;
-  vertical-align: middle;     /* center the photo vertically relative to the rows */
-  padding: 8px;               /* consistent padding */
+  vertical-align: middle;
+  padding: 8px;
 }
 
-/* Force consistent image size and crop with object-fit.
-   Use !important to override inline height/width attributes in HTML.
-*/
-.table td[rowspan] img{
+/* force image to exact 100x100 so both pages match 100/100 */
+.table td.photo-cell img.photo{
   display: block;
   margin: 6px auto;
   border: var(--border);
   background: #fff;
   padding: 4px;
 
-  width: 115px !important;    /* visual width for all photos */
-  height: 140px !important;   /* visual height for all photos (keeps table rows consistent) */
-  object-fit: cover;          /* crop the photo so faces are centered/consistent */
-  object-position: center;    /* center the crop */
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
 }
 
-/* ===== Special row: 考试信息 (if it’s a full-width divider row) ===== */
-/* If your HTML has a row like: <td colspan="2" style="font-size:14px;">考试信息</td> */
+/* special header row cell style (考试信息) */
 .table td[colspan="2"][style*="font-size:14px"],
 .table td[colspan="2"][style*="font-size: 14px"]{
   background: var(--panel-bg);
@@ -170,34 +155,14 @@ center h6{
   color: #333;
 }
 
-/* ===== Mobile responsive ===== */
+/* responsive */
 @media (max-width: 768px){
-  .well-sm{
-    padding: 10px;
-  }
-
-  center h2{ font-size: 20px; }
-  center h4{ font-size: 13px; }
-
-  .well-lg{ padding: 10px; }
-
-  .table td, .table th{
-    padding: 8px 8px;
-    font-size: 12.5px;
-  }
-
-  .table td.active.text-right{
-    width: 42%;
-    white-space: normal;
-  }
-
-  .table td[rowspan]{
-    width: 120px;
-  }
-
-  .table td[rowspan] img{
-    width: 95px !important;
-    height: 110px !important;
-    object-fit: cover;
-  }
+  .well-sm{ padding: 10px; }
+  center h2{ font-size: 18px; }
+  center h4{ font-size: 12px; }
+  .panel-body{ font-size: 12px; }
+  .table td, .table th{ padding: 8px 8px; font-size: 12px; }
+  .table td.active.text-right{ width: 42%; white-space: normal; }
+  .table td.photo-cell{ width: 80px; }
+  .table td.photo-cell img.photo{ width: 80px; height: 80px; }
 }
